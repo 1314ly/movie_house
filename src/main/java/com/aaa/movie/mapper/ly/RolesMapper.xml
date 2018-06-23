@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.ly.RolesDao">
+	
+	<select id="queryAll" resultType="Map">
+		SELECT r.rid,
+		r.rname,
+		r.eid,
+		r.uptime,
+		rl.lids
+		from roles r
+		left join (SELECT rid,GROUP_CONCAT(lid) lids from role_lib group by rid) rl
+		on r.rid = rl.rid
+	</select>
+	
+	<insert id="add" parameterType="Role">
+	   insert into roles(rid,rname,eid,uptime)
+	   values(null,#{rname},#{eid},now())
+	</insert>
+</mapper>

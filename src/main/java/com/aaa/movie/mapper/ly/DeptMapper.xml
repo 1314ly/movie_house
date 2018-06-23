@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.ly.DeptDao">
+
+   <select id="queryAll" resultType="Map">
+      select d.*,e.ename
+      from dept d,employees e
+      where d.dept_upeid = e.eid  
+   </select>
+   
+   <insert id="add" parameterType="Dept">
+      insert into dept
+      (dept_id,dept_name,dept_upeid,dept_time)
+      values(null,#{dept_name},#{dept_upeid},now())
+   </insert>
+   
+   <update id="edit" parameterType="Dept">
+      update dept
+      <set>
+         <if test="dept_name != null">
+            dept_name = #{dept_name},
+         </if>
+         <if test="dept_upeid != null">
+            dept_upeid = #{dept_upeid},
+         </if>
+         dept_time = now()
+         where dept_id = #{dept_id}
+      </set>
+   </update>
+   
+   <delete id="dels">
+		delete from dept where dept_id in(-1
+		<foreach collection="array" index="index" item="dept_id" open="," separator=",">
+			#{dept_id}
+		</foreach>
+		)
+	</delete>
+</mapper>

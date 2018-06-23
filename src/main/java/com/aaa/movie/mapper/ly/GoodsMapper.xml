@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.ly.GoodsDao">
+
+   <select id="queryById" parameterType="Integer" resultType="Goods">
+      select * from goods
+      <where>
+         <if test="goods_id != null">
+            goods_id = #{goods_id}
+         </if>
+      </where>
+   </select>
+   
+   <select id="queryPage" resultType="Map">
+		select * from goods 
+		<where>
+		   <if test="param1 != null">
+		      and goods_name like concat(concat('%',#{0},'%'))
+		   </if> 
+		</where>
+		   <if test="param2 != null and param3 != null">
+			  limit #{1},#{2}
+		   </if>
+	</select>
+	
+   <update id="edit" parameterType="Goods">
+      update goods
+      <set>
+         <if test="goods_name != null">
+            goods_name = #{goods_name},
+         </if>
+         <if test="goods_img != null">
+            goods_img = #{goods_img},
+         </if>
+         <if test="goods_price != null">
+            goods_price = #{goods_price},
+         </if>
+         <if test="goods_num != null">
+            goods_num = #{goods_num},
+         </if>
+         <if test="goods_status != null">
+            goods_status = #{goods_status}
+         </if>
+         where goods_id= #{goods_id}
+      </set>
+   </update>
+   
+   <insert id="add" parameterType="Goods">
+      insert into goods(goods_id,goods_name,goods_img,goods_price,goods_num,goods_status)
+      values(null,#{goods_name},#{goods_img},#{goods_price},#{goods_num},#{goods_status})
+   </insert>
+</mapper>

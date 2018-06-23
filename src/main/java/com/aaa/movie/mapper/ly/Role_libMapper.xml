@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.ly.Role_libDao">
+   <insert id="add">
+      insert into role_lib(rid,lid) values(#{0},#{1})
+   </insert>
+   <delete id="del">
+      delete from role_lib where rid = #{rid}
+   </delete>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.xw.UsersDao">
+	
+
+	<insert id="regist" parameterType="Users">
+		insert into users(user_name,user_pwd,
+		user_sex,user_birth,user_phone,user_status)
+		VALUES(#{user_name},#{user_pwd},#{user_sex},
+		#{user_birth},#{user_phone},1)
+	</insert>
+		
+</mapper>
+

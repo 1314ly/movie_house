@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.movie.dao.ly.RoomDao">
+
+  <select id="queryAll" resultType="Map">
+      select r.*,e.ename ename from room r,employees e where r.emp_id = e.eid
+   </select>
+   
+   <insert id="add" parameterType="Room">
+      insert into room
+      (room_id,room_name,room_state,room_sit,room_class,emp_id,room_createtime)
+      values(null,#{room_name},#{room_state},#{room_sit},#{room_class},#{emp_id},now())
+   </insert>
+   
+   <update id="edit" parameterType="Room">
+      update room
+      <set>
+         <if test="room_name != null">
+            room_name = #{room_name},
+         </if>
+         <if test="room_state != null">
+            room_state = #{room_state},
+         </if>
+         <if test="room_sit != null">
+            room_sit = #{room_sit},
+         </if>
+         <if test="room_class != null">
+            room_class = #{room_class},
+         </if>
+         <if test="emp_id != null">
+            emp_id = #{emp_id},
+         </if>
+         room_createtime = now()
+         where room_id = #{room_id}
+      </set>
+   </update>
+   
+   <delete id="dels">
+		delete from room where room_id in(-1
+		<foreach collection="array" index="index" item="room_id" open="," separator=",">
+			#{room_id}
+		</foreach>
+		)
+	</delete>
+</mapper>
